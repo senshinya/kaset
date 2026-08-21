@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
         <title>Kaset Updates</title>
-        <link>https://github.com/sozercan/kaset/releases</link>
+        <link>https://github.com/senshinya/kaset/releases</link>
         <description>Most recent updates for Kaset, a native macOS YouTube Music client.</description>
         <language>en</language>
 
         <item>
-            <title>Version 0.13.1</title>
-            <sparkle:releaseNotesLink>https://github.com/sozercan/kaset/releases/tag/v0.13.1</sparkle:releaseNotesLink>
-            <pubDate>Mon, 27 Jul 2026 03:35:08 +0000</pubDate>
+            <title>Version 100.31.1.2</title>
+            <sparkle:releaseNotesLink>https://github.com/senshinya/kaset/releases/tag/v100.31.1.2</sparkle:releaseNotesLink>
+            <pubDate>Fri, 21 Aug 2026 15:15:39 +0000</pubDate>
             <enclosure
-                url="https://github.com/sozercan/kaset/releases/download/v0.13.1/kaset-v0.13.1.dmg"
-                sparkle:version="23"
-                sparkle:shortVersionString="0.13.1"
-                length="16647013"
+                url="https://github.com/senshinya/kaset/releases/download/v100.31.1.2/kaset-v100.31.1.2.dmg"
+                sparkle:version="100.31.1.2"
+                sparkle:shortVersionString="100.31.1.2"
+                length="10314660"
                 type="application/octet-stream"
-                sparkle:edSignature="w1SN5lD2ALVLt+H6i41+0NjfAmrvqeBXFm5URrrhdgtikrE2usq37R6euqZoxuDEYxdnqap/c8zQpWIzgBm2BA=="/>
+                sparkle:edSignature="KYcfjMgcjCUTvyr2da3oqG9scLH0Sp8L5G1VeOFNFDZAxjM8KQxKEcAwPRp7MSslLjRMZWNq8Qa4Ax7sS179CA=="/>
             <sparkle:minimumSystemVersion>15.4</sparkle:minimumSystemVersion>
         </item>
 
