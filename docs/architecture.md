@@ -14,7 +14,7 @@ Sources/
       ├── Models/       → Data types (Song, Playlist, Album, Artist, etc.)
       ├── Services/     → Business logic
       │   ├── API/      → YTMusicClient, YouTubeClient, Parsers/
-      │   ├── Audio/    → EqualizerService, EqualizerAudioEngine, ProcessTapHelper, BiquadFilter
+      │   ├── Audio/    → EqualizerService, EqualizerAudioEngine, ProcessTapHelper, BiquadFilter, AudioOutputDeviceMonitor
       │   ├── Auth/     → AuthService (login state machine)
       │   ├── Library/  → Library identity and optimistic reconciliation modules
       │   ├── Player/   → PlayerService, YouTubePlayerService, PlaybackArbiter, NowPlayingManager, queue metadata and album playback actions
@@ -275,6 +275,16 @@ Control regular YouTube video playback through a separate singleton watch WebVie
 **File**: `Sources/Kaset/Services/Player/PlaybackArbiter.swift`
 
 Coordinates the two playback services so Music and YouTube do not play over each other. When one source starts, the arbiter pauses the other source; `NowPlayingManager` uses the arbiter's active/last-played source to route media keys.
+
+It also applies the one policy that spans both sources: `outputRouteDidDisappear()` pauses whichever source is playing when the audio output device it was playing through goes away. Pausing leaves `activeSource` alone — a disconnect is not a source switch, so media keys keep pointing where they pointed. See ADR-0034.
+
+### AudioOutputDeviceMonitor
+
+**File**: `Sources/Kaset/Services/Audio/AudioOutputDeviceMonitor.swift`
+
+Watches the system's default output *route* and reports to `PlaybackArbiter` when the route playback was using disappears — not when the user simply switches output. The route is the default device (matched by UID, since Core Audio recycles device IDs) plus that device's selected output data sources, because some devices expose the headphone jack and the speakers as two data sources of one device — the device ID alone cannot see an unplug there. Three Core Audio subscriptions feed it: `kAudioHardwarePropertyDefaultOutputDevice` and `kAudioHardwarePropertyDevices` on the system object, and `kAudioDevicePropertyDataSource` on whichever device is currently default, re-pointed whenever the default changes. Notifications arrive in bursts, so the monitor debounces; when the settled route differs it asks whether the previous route is still attached, and reports a loss only when it is gone.
+
+**Watcher seam**: `DefaultOutputRouteWatching` lets tests drive plug and unplug without real hardware. The production `CoreAudioDefaultOutputRouteWatcher` is deliberately not `@MainActor` — a listener block formed in a MainActor context inherits that isolation and trips Swift 6's runtime isolation check when Core Audio fires it off-main.
 
 ### NowPlayingManager
 

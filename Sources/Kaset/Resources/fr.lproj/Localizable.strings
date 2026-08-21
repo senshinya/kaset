@@ -574,3 +574,5 @@
 "Loading all songs…" = "Chargement de tous les titres…";
 "Load All Songs When Opening a Playlist" = "Charger tous les titres à l’ouverture d’une playlist";
 "When off, songs load a page at a time as you scroll. When on, opening a large playlist fetches every page up front, which can make many requests." = "Désactivé, les titres se chargent page par page au défilement. Activé, l’ouverture d’une grande playlist charge toutes les pages d’emblée, ce qui peut générer de nombreuses requêtes.";
+"Pause When the Output Device Disconnects" = "Mettre en pause à la déconnexion du périphérique de sortie";
+"Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing." = "Met la lecture en pause lorsque le périphérique audio utilisé disparaît, par exemple en débranchant un casque ou en déconnectant des AirPods. Basculer vers un autre périphérique connecté n’interrompt pas la lecture.";

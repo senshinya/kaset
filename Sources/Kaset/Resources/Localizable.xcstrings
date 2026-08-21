@@ -57514,6 +57514,218 @@
           }
         }
       }
+    },
+    "Pause When the Output Device Disconnects": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيقاف التشغيل مؤقتًا عند فصل جهاز الإخراج"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bei Trennung des Ausgabegeräts pausieren"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause When the Output Device Disconnects"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausar al desconectarse el dispositivo de salida"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mettre en pause à la déconnexion du périphérique de sortie"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeda Saat Perangkat Keluaran Terputus"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metti in pausa quando il dispositivo di uscita si disconnette"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "출력 장치 연결이 끊기면 일시 정지"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pauzeren wanneer het uitvoerapparaat wordt losgekoppeld"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wstrzymaj po odłączeniu urządzenia wyjściowego"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausar ao desconectar o dispositivo de saída"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставить на паузу при отключении устройства вывода"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa när ljudutgången kopplas ur"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çıkış Aygıtının Bağlantısı Kesildiğinde Duraklat"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Призупиняти після від’єднання пристрою виводу"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输出设备断开时暂停"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輸出裝置中斷連線時暫停"
+          }
+        }
+      }
+    },
+    "Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أوقف التشغيل مؤقتًا عند اختفاء جهاز الصوت الذي كان يشتغل عبره، مثل فصل سماعات الرأس أو قطع اتصال AirPods. أما التبديل إلى جهاز آخر متصل فيُبقي التشغيل مستمرًا."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiedergabe anhalten, wenn das Audiogerät verschwindet, über das gerade abgespielt wurde — etwa beim Abziehen von Kopfhörern oder Trennen von AirPods. Der Wechsel zu einem anderen angeschlossenen Gerät spielt weiter."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa la reproducción cuando desaparece el dispositivo de audio por el que sonaba, por ejemplo al desconectar los auriculares o los AirPods. Cambiar a otro dispositivo conectado sigue reproduciendo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Met la lecture en pause lorsque le périphérique audio utilisé disparaît, par exemple en débranchant un casque ou en déconnectant des AirPods. Basculer vers un autre périphérique connecté n’interrompt pas la lecture."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeda pemutaran saat perangkat audio yang sedang dipakai menghilang, misalnya saat mencabut headphone atau memutus AirPods. Beralih ke perangkat lain yang tersambung tetap memutar."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mette in pausa la riproduzione quando il dispositivo audio in uso scompare, ad esempio scollegando le cuffie o disconnettendo gli AirPods. Passare a un altro dispositivo collegato continua la riproduzione."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "헤드폰을 뽑거나 AirPods 연결이 끊기는 등 재생 중이던 오디오 장치가 사라지면 재생을 일시 정지합니다. 연결된 다른 장치로 전환할 때는 계속 재생합니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pauzeert het afspelen wanneer het gebruikte audioapparaat verdwijnt, bijvoorbeeld bij het loskoppelen van een koptelefoon of AirPods. Overschakelen naar een ander aangesloten apparaat speelt gewoon door."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wstrzymuje odtwarzanie, gdy zniknie używane urządzenie audio — np. po odłączeniu słuchawek lub AirPods. Przełączenie na inne podłączone urządzenie nie przerywa odtwarzania."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa a reprodução quando o dispositivo de áudio em uso desaparece, como ao desconectar os fones de ouvido ou os AirPods. Mudar para outro dispositivo conectado continua tocando."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приостанавливать воспроизведение, когда используемое аудиоустройство исчезает — например, при отключении наушников или AirPods. Переключение на другое подключённое устройство воспроизведение не прерывает."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausar uppspelningen när ljudenheten som användes försvinner, till exempel när du kopplar ur hörlurar eller AirPods. Att byta till en annan ansluten enhet fortsätter spela."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kulaklığı çıkarmak veya AirPods bağlantısının kesilmesi gibi, çalmakta olduğu ses aygıtı ortadan kalktığında oynatmayı duraklatır. Bağlı başka bir aygıta geçmek oynatmayı sürdürür."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Призупиняє відтворення, коли зникає аудіопристрій, через який відтворювався звук, — наприклад, коли ви від’єднуєте навушники або AirPods. Перемикання на інший підключений пристрій відтворення не спиняє."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当正在播放的音频设备消失时暂停播放，例如拔下耳机或断开 AirPods。切换到其他已连接的设备则继续播放。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當正在播放的音訊裝置消失時暫停播放，例如拔除耳機或中斷 AirPods。切換到其他已連接的裝置則繼續播放。"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

@@ -572,3 +572,5 @@
 "Loading all songs…" = "正在加载全部歌曲…";
 "Load All Songs When Opening a Playlist" = "打开播放列表时加载全部歌曲";
 "When off, songs load a page at a time as you scroll. When on, opening a large playlist fetches every page up front, which can make many requests." = "关闭时，滚动时按页加载歌曲。开启时，打开大型播放列表会一次性获取全部分页，可能产生大量请求。";
+"Pause When the Output Device Disconnects" = "输出设备断开时暂停";
+"Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing." = "当正在播放的音频设备消失时暂停播放，例如拔下耳机或断开 AirPods。切换到其他已连接的设备则继续播放。";

@@ -299,6 +299,28 @@ are not emitted to unified logging.
   the stream may not be available for that account/video, or the observed value
   may have been captured before the player settled.
 
+## Losing the Output Device
+
+`AudioOutputDeviceMonitor` watches the system's default audio output route —
+the default device plus that device's selected data sources, so an unplug is
+caught even on hardware that models the headphone jack as a second data source
+of the built-in device rather than as its own device. When the route changes,
+the monitor asks whether the previous route is still attached. If it is gone —
+headphones unplugged, AirPods disconnected, an interface pulled out —
+`PlaybackArbiter.outputRouteDidDisappear()` pauses whichever source is playing,
+so audio never keeps coming out of the speakers after the headphones are gone.
+
+- A deliberate switch does not pause. Connecting headphones, or picking another
+  output in Control Center, leaves the still-attached previous device behind
+  and playback continues.
+- Only an actually-playing source is paused. A disconnect while music is still
+  loading is ignored, so it never cancels a request the user just started.
+- Media-key routing is untouched: pausing is not a source switch.
+- Picking an AirPlay target inside the WebView does not change the system
+  default output device, so the in-app picker never triggers this.
+- Playback is not resumed when the device comes back.
+- Off switch: General → Behavior → "Pause When the Output Device Disconnects".
+
 ## Background Audio
 
 ### Window Close Behavior

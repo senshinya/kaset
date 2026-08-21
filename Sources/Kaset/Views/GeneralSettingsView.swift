@@ -50,6 +50,13 @@ struct GeneralSettingsView: View {
                 Toggle("Haptic Feedback", isOn: self.$settings.hapticFeedbackEnabled)
                     .help(String(localized: "Provide tactile feedback for actions on Force Touch trackpads"))
 
+                // Pause on Output Device Disconnect
+                Toggle(
+                    String(localized: "Pause When the Output Device Disconnects"),
+                    isOn: self.$settings.pauseOnOutputDeviceDisconnect
+                )
+                .help(String(localized: "Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing."))
+
                 // Default Launch Page
                 Picker(String(localized: "Default Page on Launch"), selection: self.$settings.defaultLaunchPage) {
                     ForEach(SettingsManager.LaunchPage.allCases) { page in

@@ -47,6 +47,7 @@ struct KasetApp: App {
     @State private var playerService = PlayerService()
     @State private var youtubePlayerService: YouTubePlayerService
     @State private var playbackArbiter: PlaybackArbiter
+    @State private var audioOutputDeviceMonitor: AudioOutputDeviceMonitor
     @State private var sharedClient: any YTMusicClientProtocol
     @State private var sharedYouTubeClient: any YouTubeClientProtocol
     @State private var notificationService: NotificationService?
@@ -174,11 +175,14 @@ struct KasetApp: App {
         youtubePlayer.youtubeClient = youtubeClient
         let arbiter = PlaybackArbiter(playerService: player, youtubePlayerService: youtubePlayer)
 
+        let outputDeviceMonitor = Self.makeOutputDeviceMonitor(arbiter: arbiter)
+
         _authService = State(initialValue: auth)
         _webKitManager = State(initialValue: webkit)
         _playerService = State(initialValue: player)
         _youtubePlayerService = State(initialValue: youtubePlayer)
         _playbackArbiter = State(initialValue: arbiter)
+        _audioOutputDeviceMonitor = State(initialValue: outputDeviceMonitor)
         _sharedClient = State(initialValue: client)
         _sharedYouTubeClient = State(initialValue: youtubeClient)
         _syncedLyricsService = State(initialValue: SyncedLyricsService(providers: [
@@ -216,6 +220,19 @@ struct KasetApp: App {
         if UITestConfig.isUITestMode {
             DiagnosticsLogger.ui.info("App launched in UI Test mode")
         }
+    }
+
+    /// Pauses whatever is playing when the audio output device it was playing
+    /// through disappears, so audio never keeps coming out of the speakers
+    /// after the headphones are gone.
+    @MainActor
+    private static func makeOutputDeviceMonitor(arbiter: PlaybackArbiter) -> AudioOutputDeviceMonitor {
+        let monitor = AudioOutputDeviceMonitor()
+        monitor.onOutputRouteLost = { [weak arbiter] in
+            arbiter?.outputRouteDidDisappear()
+        }
+        monitor.start()
+        return monitor
     }
 
     var body: some Scene {

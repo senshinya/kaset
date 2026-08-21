@@ -15,6 +15,7 @@ final class SettingsManager {
         static let showNowPlayingNotifications = "settings.showNowPlayingNotifications"
         static let defaultLaunchPage = "settings.defaultLaunchPage"
         static let hapticFeedbackEnabled = "settings.hapticFeedbackEnabled"
+        static let pauseOnOutputDeviceDisconnect = "settings.pauseOnOutputDeviceDisconnect"
         static let rememberPlaybackSettings = "settings.rememberPlaybackSettings"
         static let lastFMEnabled = "settings.lastFMEnabled"
         static let enabledServices = "settings.enabledServices"
@@ -270,6 +271,19 @@ final class SettingsManager {
         }
     }
 
+    /// Whether playback pauses when the audio output device it was playing
+    /// through disappears (headphones unplugged, AirPods disconnected).
+    /// Switching to another attached device keeps playing. Applies to both
+    /// Music and YouTube video playback.
+    var pauseOnOutputDeviceDisconnect: Bool {
+        didSet {
+            UserDefaults.standard.set(
+                self.pauseOnOutputDeviceDisconnect,
+                forKey: Keys.pauseOnOutputDeviceDisconnect
+            )
+        }
+    }
+
     /// Whether opening a playlist immediately loads every page instead of paging on scroll.
     var autoLoadFullPlaylistOnOpen: Bool {
         didSet {
@@ -506,6 +520,8 @@ final class SettingsManager {
         // Load persisted settings or use defaults
         self.showNowPlayingNotifications = UserDefaults.standard.object(forKey: Keys.showNowPlayingNotifications) as? Bool ?? true
         self.hapticFeedbackEnabled = UserDefaults.standard.object(forKey: Keys.hapticFeedbackEnabled) as? Bool ?? true
+        self.pauseOnOutputDeviceDisconnect = UserDefaults.standard
+            .object(forKey: Keys.pauseOnOutputDeviceDisconnect) as? Bool ?? true
         self.autoLoadFullPlaylistOnOpen = UserDefaults.standard.object(forKey: Keys.autoLoadFullPlaylistOnOpen) as? Bool ?? false
         self.rememberPlaybackSettings = UserDefaults.standard.object(forKey: Keys.rememberPlaybackSettings) as? Bool ?? false
 

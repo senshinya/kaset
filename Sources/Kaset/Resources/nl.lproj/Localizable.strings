@@ -574,3 +574,5 @@
 "Loading all songs…" = "Alle nummers laden…";
 "Load All Songs When Opening a Playlist" = "Alle nummers laden bij openen van afspeellijst";
 "When off, songs load a page at a time as you scroll. When on, opening a large playlist fetches every page up front, which can make many requests." = "Uitgeschakeld laden nummers per pagina terwijl je scrolt. Ingeschakeld haalt het openen van een grote afspeellijst meteen alle pagina’s op, wat veel verzoeken kan veroorzaken.";
+"Pause When the Output Device Disconnects" = "Pauzeren wanneer het uitvoerapparaat wordt losgekoppeld";
+"Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing." = "Pauzeert het afspelen wanneer het gebruikte audioapparaat verdwijnt, bijvoorbeeld bij het loskoppelen van een koptelefoon of AirPods. Overschakelen naar een ander aangesloten apparaat speelt gewoon door.";

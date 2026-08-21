@@ -574,3 +574,5 @@
 "Loading all songs…" = "모든 노래 불러오는 중…";
 "Load All Songs When Opening a Playlist" = "재생목록을 열 때 모든 노래 불러오기";
 "When off, songs load a page at a time as you scroll. When on, opening a large playlist fetches every page up front, which can make many requests." = "끄면 스크롤할 때 노래가 페이지 단위로 로드됩니다. 켜면 큰 재생목록을 열 때 모든 페이지를 미리 가져오므로 요청이 많아질 수 있습니다.";
+"Pause When the Output Device Disconnects" = "출력 장치 연결이 끊기면 일시 정지";
+"Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing." = "헤드폰을 뽑거나 AirPods 연결이 끊기는 등 재생 중이던 오디오 장치가 사라지면 재생을 일시 정지합니다. 연결된 다른 장치로 전환할 때는 계속 재생합니다.";

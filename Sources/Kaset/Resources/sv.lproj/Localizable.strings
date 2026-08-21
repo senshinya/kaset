@@ -574,3 +574,5 @@
 "Loading all songs…" = "Läser in alla låtar…";
 "Load All Songs When Opening a Playlist" = "Läs in alla låtar när en spellista öppnas";
 "When off, songs load a page at a time as you scroll. When on, opening a large playlist fetches every page up front, which can make many requests." = "När det är av läses låtar in en sida i taget när du bläddrar. När det är på hämtar en stor spellista alla sidor direkt, vilket kan ge många förfrågningar.";
+"Pause When the Output Device Disconnects" = "Pausa när ljudutgången kopplas ur";
+"Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing." = "Pausar uppspelningen när ljudenheten som användes försvinner, till exempel när du kopplar ur hörlurar eller AirPods. Att byta till en annan ansluten enhet fortsätter spela.";

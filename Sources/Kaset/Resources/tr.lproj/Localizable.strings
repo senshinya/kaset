@@ -574,3 +574,5 @@
 "Loading all songs…" = "Tüm şarkılar yükleniyor…";
 "Load All Songs When Opening a Playlist" = "Bir çalma listesi açıldığında tüm şarkıları yükle";
 "When off, songs load a page at a time as you scroll. When on, opening a large playlist fetches every page up front, which can make many requests." = "Kapalıyken, kaydırdıkça şarkılar sayfa sayfa yüklenir. Açıkken, büyük bir çalma listesini açmak tüm sayfaları önceden getirir; bu çok sayıda istek oluşturabilir.";
+"Pause When the Output Device Disconnects" = "Çıkış Aygıtının Bağlantısı Kesildiğinde Duraklat";
+"Pause playback when the audio device it was playing through disappears, such as unplugging headphones or disconnecting AirPods. Switching to another attached device keeps playing." = "Kulaklığı çıkarmak veya AirPods bağlantısının kesilmesi gibi, çalmakta olduğu ses aygıtı ortadan kalktığında oynatmayı duraklatır. Bağlı başka bir aygıta geçmek oynatmayı sürdürür.";

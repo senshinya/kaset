@@ -2003,6 +2003,105 @@ struct PlaybackArbiterTests {
         #expect(playerService.currentTrack?.videoId == "new")
     }
 
+    @Test("Losing the output device pauses playing music")
+    func outputDeviceLossPausesMusic() async {
+        let playerService = PlayerService()
+        let controller = MockYouTubeWatchPlaybackController()
+        let youtubePlayer = YouTubePlayerService(playbackController: controller)
+        let arbiter = PlaybackArbiter(
+            playerService: playerService,
+            youtubePlayerService: youtubePlayer,
+            pausesOnOutputDeviceDisconnect: { true }
+        )
+        playerService.state = .playing
+
+        arbiter.outputRouteDidDisappear()
+        for _ in 0 ..< 10 {
+            await Task.yield()
+        }
+
+        #expect(playerService.state == .paused)
+        #expect(arbiter.activeSource == .music)
+    }
+
+    @Test("Losing the output device pauses a playing video")
+    func outputDeviceLossPausesVideo() async {
+        let playerService = PlayerService()
+        let controller = MockYouTubeWatchPlaybackController()
+        let youtubePlayer = YouTubePlayerService(playbackController: controller)
+        let arbiter = PlaybackArbiter(
+            playerService: playerService,
+            youtubePlayerService: youtubePlayer,
+            pausesOnOutputDeviceDisconnect: { true }
+        )
+        youtubePlayer.play(video: MockYouTubeClient.makeVideo(videoId: "abc"))
+        youtubePlayer.updatePlaybackState(.init(
+            isPlaying: true, progress: 0, duration: 10,
+            videoId: "abc", title: nil, isAd: false
+        ))
+
+        arbiter.outputRouteDidDisappear()
+        for _ in 0 ..< 10 {
+            await Task.yield()
+        }
+
+        #expect(controller.pauseCount == 1)
+        // Pausing is not a source switch: the video keeps the media keys.
+        #expect(arbiter.activeSource == .video)
+    }
+
+    @Test("Losing the output device leaves idle playback alone")
+    func outputDeviceLossIgnoresIdlePlayback() async {
+        let playerService = PlayerService()
+        let controller = MockYouTubeWatchPlaybackController()
+        let youtubePlayer = YouTubePlayerService(playbackController: controller)
+        let arbiter = PlaybackArbiter(
+            playerService: playerService,
+            youtubePlayerService: youtubePlayer,
+            pausesOnOutputDeviceDisconnect: { true }
+        )
+        // A disconnect must not supersede a music request that is still loading.
+        playerService.state = .loading
+        let generationBefore = playerService.playbackRequestGeneration
+
+        arbiter.outputRouteDidDisappear()
+        for _ in 0 ..< 10 {
+            await Task.yield()
+        }
+
+        #expect(playerService.state == .loading)
+        #expect(playerService.playbackRequestGeneration == generationBefore)
+        #expect(controller.pauseCount == 0)
+    }
+
+    @Test("Losing the output device does nothing when the preference is off")
+    func outputDeviceLossRespectsPreference() async {
+        let playerService = PlayerService()
+        let controller = MockYouTubeWatchPlaybackController()
+        let youtubePlayer = YouTubePlayerService(playbackController: controller)
+        let arbiter = PlaybackArbiter(
+            playerService: playerService,
+            youtubePlayerService: youtubePlayer,
+            pausesOnOutputDeviceDisconnect: { false }
+        )
+        youtubePlayer.play(video: MockYouTubeClient.makeVideo(videoId: "abc"))
+        youtubePlayer.updatePlaybackState(.init(
+            isPlaying: true, progress: 0, duration: 10,
+            videoId: "abc", title: nil, isAd: false
+        ))
+        // Set after the video starts: starting one source is itself a pause of
+        // the other, which would otherwise clear this state before the assert.
+        playerService.state = .playing
+
+        arbiter.outputRouteDidDisappear()
+        for _ in 0 ..< 10 {
+            await Task.yield()
+        }
+
+        #expect(playerService.state == .playing)
+        #expect(controller.pauseCount == 0)
+    }
+
     @Test("Video ownership supersedes a pending Music API intent")
     func videoSupersedesPendingMusicIntent() async {
         let playerService = PlayerService()

@@ -10,6 +10,10 @@ import Observation
 /// `musicDidStartPlaying()` from its existing `onChange(of: isPlaying)`
 /// hook, and `YouTubePlayerService` invokes `playbackWillStart` before any
 /// video playback begins.
+///
+/// It also owns the one policy that applies to whichever source is playing:
+/// losing the audio output device pauses playback (see
+/// ``outputRouteDidDisappear()``).
 @MainActor
 @Observable
 final class PlaybackArbiter {
@@ -18,11 +22,24 @@ final class PlaybackArbiter {
 
     private let playerService: PlayerService
     private let youtubePlayerService: YouTubePlayerService
+
+    /// User preference gate for ``outputRouteDidDisappear()``. Injected rather
+    /// than read from `SettingsManager.shared` so tests configure a single
+    /// instance instead of mutating the shared singleton, which races across
+    /// suites that run in parallel.
+    private let pausesOnOutputDeviceDisconnect: @MainActor () -> Bool
     private let logger = DiagnosticsLogger.player
 
-    init(playerService: PlayerService, youtubePlayerService: YouTubePlayerService) {
+    init(
+        playerService: PlayerService,
+        youtubePlayerService: YouTubePlayerService,
+        pausesOnOutputDeviceDisconnect: @escaping @MainActor () -> Bool = {
+            SettingsManager.shared.pauseOnOutputDeviceDisconnect
+        }
+    ) {
         self.playerService = playerService
         self.youtubePlayerService = youtubePlayerService
+        self.pausesOnOutputDeviceDisconnect = pausesOnOutputDeviceDisconnect
 
         youtubePlayerService.playbackWillStart = { [weak self] in
             self?.videoWillStartPlaying()
@@ -54,6 +71,34 @@ final class PlaybackArbiter {
         guard self.youtubePlayerService.isPlaying else { return }
         self.logger.info("Arbiter: pausing video for music playback")
         self.youtubePlayerService.pause()
+    }
+
+    /// The audio output device playback was using disappeared — headphones
+    /// unplugged, AirPods disconnected, an interface pulled out. Whatever is
+    /// playing has been moved to a speaker the user did not choose, so pause
+    /// it. Ownership of the media keys is unaffected: pausing is not a source
+    /// switch.
+    ///
+    /// Deliberately not called for a switch to a device that is still
+    /// attached: choosing a different output, or connecting headphones, is not
+    /// a reason to stop the music.
+    func outputRouteDidDisappear() {
+        guard self.pausesOnOutputDeviceDisconnect() else { return }
+
+        if self.youtubePlayerService.isPlaying {
+            self.logger.info("Arbiter: pausing video after losing the output device")
+            self.youtubePlayerService.pause()
+        }
+
+        // Only claim a music intent when there is playing music to pause:
+        // beginning one supersedes any in-flight music request, and a device
+        // disconnect must not cancel a load the user just started.
+        guard self.playerService.isPlaying else { return }
+        self.logger.info("Arbiter: pausing music after losing the output device")
+        let intent = self.playerService.beginMusicPlaybackIntent()
+        Task {
+            await self.playerService.pause(intent: intent)
+        }
     }
 
     /// Whether media keys should currently control the YouTube video player.

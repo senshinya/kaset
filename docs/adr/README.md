@@ -68,3 +68,4 @@ What becomes easier or more difficult because of this change?
 | [0031](0031-saved-album-library-reconciliation.md) | Saved-Album Library Identity and Reconciliation | Accepted |
 | [0032](0032-youtube-ask-gemini.md) | Watch-Scoped YouTube Ask Gemini | Accepted; fixed WEB profile enabled in production |
 | [0033](0033-client-side-playlist-sort-and-search.md) | Client-Side Playlist Sort and Search | Accepted |
+| [0034](0034-pause-on-output-device-change.md) | Pause Playback When the Audio Output Device Disappears | Accepted |
