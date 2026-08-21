@@ -182,11 +182,14 @@ jobs:
         env:
           KASET_SIGNING: ${{ steps.import_cert.outputs.signing_mode }}
           APP_IDENTITY: ${{ steps.import_cert.outputs.identity }}
-          ARCHES: "arm64 x86_64"
+          ARCHES: "arm64"
         run: |
-          # Set version from tag
+          # Both versions come from the tag. CFBundleVersion is what Sparkle
+          # compares, so deriving it from the run number made an older tag
+          # published later look newer, and re-running a release renumber the
+          # same build.
           echo "MARKETING_VERSION=${{ steps.version.outputs.version }}" > version.env
-          echo "BUILD_NUMBER=${{ github.run_number }}" >> version.env
+          echo "BUILD_NUMBER=${{ steps.version.outputs.version }}" >> version.env
           Scripts/build-app.sh release
 
       - name: Verify release app
@@ -231,15 +234,19 @@ jobs:
             exit 1
           fi
 
-          # Verify Universal Binary (Intel + Apple Silicon)
+          # Verify the binary is Apple Silicon only
           if [ -f "$APP_PATH/Contents/MacOS/Kaset" ]; then
             ARCHS=$(lipo -archs "$APP_PATH/Contents/MacOS/Kaset" 2>/dev/null || echo "unknown")
           else
             ARCHS="unknown"
           fi
           echo "Architectures: $ARCHS"
-          if [[ "$ARCHS" != *"x86_64"* ]] || [[ "$ARCHS" != *"arm64"* ]]; then
-            echo "Error: App is not a Universal Binary (found: $ARCHS)"
+          if [[ "$ARCHS" != *"arm64"* ]]; then
+            echo "Error: App has no arm64 slice (found: $ARCHS)"
+            exit 1
+          fi
+          if [[ "$ARCHS" == *"x86_64"* ]]; then
+            echo "Error: App still carries an x86_64 slice (found: $ARCHS)"
             exit 1
           fi
 
@@ -434,7 +441,22 @@ jobs:
               $PRERELEASE_FLAG
           fi
 
+      # The `secrets` context is not available in a step-level `if:`, so the
+      # decision has to be made in a step and passed on as an output.
+      - name: Detect optional publishing secrets
+        id: optional_secrets
+        env:
+          HOMEBREW_REPO_TOKEN: ${{ secrets.HOMEBREW_REPO_TOKEN }}
+        run: |
+          if [ -n "$HOMEBREW_REPO_TOKEN" ]; then
+            echo "has_homebrew_token=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_homebrew_token=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::HOMEBREW_REPO_TOKEN is not configured; skipping the Homebrew cask update. The GitHub release itself is unaffected."
+          fi
+
       - name: Checkout Homebrew tap repo
+        if: steps.optional_secrets.outputs.has_homebrew_token == 'true'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4
         with:
           repository: sozercan/homebrew-repo
@@ -443,6 +465,7 @@ jobs:
           fetch-depth: 0
 
       - name: Update Homebrew Cask
+        if: steps.optional_secrets.outputs.has_homebrew_token == 'true'
         run: |
           TAG="${{ steps.artifact.outputs.tag }}"
           VERSION="${TAG#v}"
@@ -532,7 +555,7 @@ jobs:
                       <pubDate>${PUB_DATE}</pubDate>
                       <enclosure
                           url="${DOWNLOAD_URL}"
-                          sparkle:version="${{ github.run_number }}"
+                          sparkle:version="${VERSION}"
                           sparkle:shortVersionString="${VERSION}"
                           length="${LENGTH}"
                           type="application/octet-stream"

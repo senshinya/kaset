@@ -62,7 +62,7 @@ jobs:
       - name: Build app
         env:
           KASET_SIGNING: adhoc
-          ARCHES: "arm64 x86_64"
+          ARCHES: "arm64"
         run: |
           # Override version for dev builds
           echo "MARKETING_VERSION=0.0.0-dev.${{ steps.slug.outputs.sha_short }}" > version.env
