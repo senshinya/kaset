@@ -27,13 +27,19 @@ struct KasetSidebarRow: View {
                     .foregroundStyle(PackageResourceLookup.brandAccent)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 10)
+            // The only horizontal inset the row adds itself. A matching inset
+            // on `listRowInsets` used to stack with this one on top of the
+            // sidebar list's own, pushing the icons ~20pt right of the section
+            // headers they sit under. The list's inset already holds the row
+            // off the sidebar edge, so the row only has to hold its content
+            // off the selection capsule.
+            .padding(.horizontal, 8)
             .padding(.vertical, 5)
             .background(self.selectionBackground)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .listRowInsets(EdgeInsets(top: 1, leading: 10, bottom: 1, trailing: 10))
+        .listRowInsets(EdgeInsets(top: 1, leading: 0, bottom: 1, trailing: 0))
         .accessibilityAddTraits(self.isSelected ? .isSelected : [])
     }
 
