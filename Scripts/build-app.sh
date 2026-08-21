@@ -463,9 +463,9 @@ ${APP_LOCALIZATIONS_PLIST}
 
     <!-- Sparkle Auto-Update Configuration -->
     <key>SUFeedURL</key>
-    <string>https://raw.githubusercontent.com/sozercan/kaset/main/appcast.xml</string>
+    <string>https://raw.githubusercontent.com/senshinya/kaset/main/appcast.xml</string>
     <key>SUPublicEDKey</key>
-    <string>qa2zoeXHqn+pluxQSGjn5HyIYA/iFtrEJz7S1BoslpI=</string>
+    <string>NTwsvNoqnFodGCusjRIGXr1ImYZ736rGrp/hgt9ki1k=</string>
     <key>SUEnableAutomaticChecks</key>
     <true/>
     <key>SUScheduledCheckInterval</key>
