@@ -163,17 +163,25 @@ struct PlaylistDetailViewModelTests {
             duration: nil
         )
         self.mockClient.playlistContinuationTracks[playlist.id] = [[songs[2]]]
-        self.mockClient.playlistContinuationDelay = .milliseconds(150)
+        // The cancellation has to land while the continuation is still in
+        // flight. A delay here made that a race the test lost on loaded CI
+        // machines: the response returned and appended "c" before the cancel
+        // arrived. Gate the response instead, so the ordering is a fact rather
+        // than a bet on scheduling.
+        let continuationStarted = AsyncGate()
+        let releaseContinuation = AsyncGate()
+        self.mockClient.beforePlaylistContinuationReturn = { _ in
+            await continuationStarted.open()
+            await releaseContinuation.wait()
+        }
         let viewModel = PlaylistDetailViewModel(playlist: playlist, client: self.mockClient)
         await viewModel.load()
         let removal = try #require(viewModel.beginOptimisticTrackRemoval(setVideoId: "set-a"))
 
         let loadMoreTask = Task { await viewModel.loadMore() }
-        await self.waitUntil(
-            viewModel.loadingState == .loadingMore,
-            description: "continuation load to start"
-        )
+        await continuationStarted.wait()
         loadMoreTask.cancel()
+        await releaseContinuation.open()
         await loadMoreTask.value
         await self.waitUntil(
             viewModel.loadingState == .loaded,
