@@ -383,6 +383,11 @@ private final class SingleFlightYouTubeClient: YouTubeClientProtocol {
         return YouTubeChannelDetail(channel: YouTubeChannel(channelId: channelId, name: "Mock Channel"), videos: [])
     }
 
+    func searchChannel(channelId _: String, query _: String, params _: String?) async throws -> YouTubeFeed {
+        try await self.waitIfNeeded()
+        return YouTubeFeed(videos: [], continuation: nil)
+    }
+
     func getPlaylist(playlistId: String) async throws -> YouTubePlaylistDetail {
         self.playlistCallCount += 1
         try await self.waitIfNeeded()

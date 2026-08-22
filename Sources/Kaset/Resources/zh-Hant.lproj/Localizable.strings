@@ -292,6 +292,7 @@
 "No Content Available" = "沒有可用的內容";
 "No Extensions Added" = "尚未新增擴充功能";
 "No Lyrics Available" = "沒有可用的歌詞";
+"No matching videos" = "沒有相符的影片";
 "No Moods & Genres Available" = "沒有可用的心情與曲風";
 "No Playlists" = "沒有播放清單";
 "No Queue" = "待播清單是空的";
@@ -421,6 +422,7 @@
 "Scroll %@ right" = "向右捲動%@";
 "Scrolls this shelf by one page" = "將此內容架捲動一頁";
 "Search" = "搜尋";
+"Search this channel" = "搜尋此頻道";
 "Search YouTube" = "搜尋 YouTube";
 "Search for your favorite music" = "搜尋你喜歡的音樂";
 "Search songs, albums, artists..." = "搜尋歌曲、專輯、藝人…";

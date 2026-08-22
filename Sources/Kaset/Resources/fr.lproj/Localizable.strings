@@ -288,6 +288,7 @@
 "No history" = "Aucun historique";
 "No liked songs yet" = "Aucun morceau aimé pour le moment";
 "No Lyrics Available" = "Aucune parole disponible";
+"No matching videos" = "Aucune vidéo correspondante";
 "No Moods & Genres Available" = "Aucune ambiance et genre disponible";
 "No Playlists" = "Aucune playlist";
 "No playlists" = "Aucune playlist";
@@ -412,6 +413,7 @@
 "Search" = "Rechercher";
 "Search for your favorite music" = "Recherchez votre musique préférée";
 "Search songs, albums, artists..." = "Rechercher des morceaux, albums, artistes...";
+"Search this channel" = "Rechercher dans cette chaîne";
 "Search YouTube" = "Rechercher sur YouTube";
 "Searching..." = "Recherche en cours...";
 "See all" = "Tout voir";

@@ -94,8 +94,15 @@ protocol YouTubeClientProtocol: Sendable {
 
     // MARK: Browse
 
-    /// Fetches a channel page by `UC…` channel ID.
+    /// Fetches a channel page by `UC…` channel ID, returning its header plus
+    /// the first page of its Videos tab. Page further with
+    /// `getFeedContinuation(continuation:)`, using either the detail's
+    /// `videosContinuation` or a sort option's token.
     func getChannel(channelId: String) async throws -> YouTubeChannelDetail
+
+    /// Searches within one channel. Pass the channel page's own `searchParams`
+    /// when available; the client falls back to the standard Search tab params.
+    func searchChannel(channelId: String, query: String, params: String?) async throws -> YouTubeFeed
 
     /// Fetches a playlist page by playlist ID (without the `VL` prefix).
     func getPlaylist(playlistId: String) async throws -> YouTubePlaylistDetail

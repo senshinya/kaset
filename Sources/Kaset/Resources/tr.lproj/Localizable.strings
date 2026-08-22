@@ -288,6 +288,7 @@
 "No history" = "Geçmiş yok";
 "No liked songs yet" = "Henüz beğenilen şarkı yok";
 "No Lyrics Available" = "Şarkı Sözü Yok";
+"No matching videos" = "Eşleşen video yok";
 "No Moods & Genres Available" = "Ruh Halleri ve Türler Yok";
 "No Playlists" = "Çalma listesi yok";
 "No playlists" = "Çalma listesi yok";
@@ -412,6 +413,7 @@
 "Search" = "Ara";
 "Search for your favorite music" = "Favori müziğinizi arayın";
 "Search songs, albums, artists..." = "Şarkı, albüm, sanatçı ara...";
+"Search this channel" = "Bu kanalda ara";
 "Search YouTube" = "YouTube'da ara";
 "Searching..." = "Aranıyor...";
 "See all" = "Tümünü Gör";

@@ -288,6 +288,7 @@
 "No history" = "لا يوجد سجل";
 "No liked songs yet" = "لا توجد أغاني معجب بها بعد";
 "No Lyrics Available" = "لا تتوفر كلمات";
+"No matching videos" = "لا توجد فيديوهات مطابقة";
 "No Moods & Genres Available" = "لا تتوفر حالات أو أنواع";
 "No Playlists" = "لا توجد قوائم تشغيل";
 "No playlists" = "لا توجد قوائم تشغيل";
@@ -412,6 +413,7 @@
 "Search" = "بحث";
 "Search for your favorite music" = "ابحث عن موسيقاك المفضلة";
 "Search songs, albums, artists..." = "البحث عن أغاني، ألبومات، فنانين...";
+"Search this channel" = "البحث في هذه القناة";
 "Search YouTube" = "البحث في YouTube";
 "Searching..." = "جارٍ البحث...";
 "See all" = "عرض الكل";

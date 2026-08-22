@@ -292,6 +292,7 @@
 "No Content Available" = "暂无可用内容";
 "No Extensions Added" = "尚未添加扩展";
 "No Lyrics Available" = "暂无歌词";
+"No matching videos" = "没有匹配的视频";
 "No Moods & Genres Available" = "暂无心情与流派";
 "No Playlists" = "暂无播放列表";
 "No Queue" = "队列为空";
@@ -421,6 +422,7 @@
 "Scroll %@ right" = "向右滚动%@";
 "Scrolls this shelf by one page" = "将此内容架滚动一页";
 "Search" = "搜索";
+"Search this channel" = "搜索此频道";
 "Search YouTube" = "搜索 YouTube";
 "Search for your favorite music" = "搜索你喜欢的音乐";
 "Search songs, albums, artists..." = "搜索歌曲、专辑、艺人…";

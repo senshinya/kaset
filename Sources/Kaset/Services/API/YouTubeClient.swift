@@ -399,15 +399,33 @@ final class YouTubeClient: YouTubeClientProtocol { // swiftlint:disable:this typ
     func getChannel(channelId: String) async throws -> YouTubeChannelDetail {
         self.logger.info("Fetching YouTube channel page")
 
+        // Browse the Videos tab, not the landing tab: the landing tab returns a
+        // curated shelf mix with no grid continuation, so it can never page
+        // through a channel's full catalog. The Videos response still carries
+        // the same header, metadata, and tab list.
         let data = try await self.request(
             "browse",
-            body: ["browseId": channelId],
+            body: ["browseId": channelId, "params": ChannelPageParser.videosTabParams],
             ttl: APICache.TTL.artist
         )
         guard let detail = ChannelPageParser.parse(data, channelId: channelId) else {
             throw YTMusicError.parseError(message: "Could not parse channel page")
         }
         return detail
+    }
+
+    func searchChannel(channelId: String, query: String, params: String?) async throws -> YouTubeFeed {
+        self.logger.info("Searching within a YouTube channel")
+
+        let data = try await self.request(
+            "browse",
+            body: [
+                "browseId": channelId,
+                "params": params ?? ChannelPageParser.searchTabParams,
+                "query": query,
+            ]
+        )
+        return YouTubeFeedParser.parse(data)
     }
 
     func getPlaylist(playlistId: String) async throws -> YouTubePlaylistDetail {

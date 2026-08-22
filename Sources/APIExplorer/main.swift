@@ -1630,7 +1630,11 @@ func needsAuthentication(_ browseId: String) -> Bool {
 }
 
 func exploreBrowse(
-    _ browseId: String, params: String? = nil, verbose: Bool = false, outputFile: String? = nil
+    _ browseId: String,
+    params: String? = nil,
+    query: String? = nil,
+    verbose: Bool = false,
+    outputFile: String? = nil
 ) async {
     let needsAuth = needsAuthentication(browseId)
     let authIcon = needsAuth ? "🔐" : "🌐"
@@ -1648,6 +1652,11 @@ func exploreBrowse(
     var body: [String: Any] = ["browseId": browseId]
     if let params {
         body["params"] = params
+    }
+    // Channel "Search" tab: browse carries the query alongside the tab params.
+    if let query {
+        body["query"] = query
+        print("   Query: \(query)")
     }
 
     do {
@@ -3407,6 +3416,7 @@ func showHelp() {
 
         Commands:
           browse <browseId> [params]     Explore a browse endpoint
+                                         (+ --query <text> for the channel Search tab)
           action <endpoint> [body]       Explore a JSON action endpoint
           wire-action <endpoint> [body]  Safely inspect JSON, streaming, or opaque responses
           ask-video-audit <videoId>      Audit Ask Gemini / YouChat without sending a prompt
@@ -3554,6 +3564,7 @@ func runMain() async {
     var outputFile: String?
     var bodyFile: String?
     var promptFile: String?
+    var browseQuery: String?
     var filteredArgs: [String] = []
 
     var index = 0
@@ -3603,6 +3614,13 @@ func runMain() async {
             }
             index += 1
             promptFile = value
+        case "--query":
+            guard let value = commandLineOptionValue(after: index, in: args) else {
+                print("❌ --query requires a search term")
+                return
+            }
+            browseQuery = value
+            index += 1
         case "--authuser":
             guard let rawValue = commandLineOptionValue(after: index, in: args),
                   let value = Int(rawValue),
@@ -3683,7 +3701,13 @@ func runMain() async {
         }
         let browseId = filteredArgs[1]
         let params: String? = filteredArgs.count >= 3 ? filteredArgs[2] : nil
-        await exploreBrowse(browseId, params: params, verbose: verbose, outputFile: outputFile)
+        await exploreBrowse(
+            browseId,
+            params: params,
+            query: browseQuery,
+            verbose: verbose,
+            outputFile: outputFile
+        )
 
     case "action":
         guard filteredArgs.count >= 2 else {

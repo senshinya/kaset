@@ -81,6 +81,9 @@ and suggestion submissions are never retried automatically. See
 | Watch Later / Liked | `browse` `VLWL` / `VLLL` (playlist page) |
 | User playlists | `browse` `FEplaylist_aggregation` |
 | Search | `search` (+`params` filters: videos `EgIQAQ==`, channels `EgIQAg==`, playlists `EgIQAw==`) |
+| Channel page | `browse` `UC…` + `params` `EgZ2aWRlb3PyBgQKAjoA` (Videos tab; the landing tab returns a curated shelf mix with no grid continuation) |
+| Channel video sort | The Videos tab's own chip tokens (`richGridRenderer.header.chipBarViewModel`, Latest/Popular/Oldest) replayed through `browse` `continuation` |
+| Channel search | `browse` `UC…` + the page's Search tab `params` (`EgZzZWFyY2jyBgQKAloA`) + `query` |
 | Watch metadata + related | `next` |
 | Watch chapters | `next` (`playerOverlays…multiMarkersPlayerBarRenderer.markersMap[].value.chapters[]`) |
 | Ask eligibility/bootstrap | The existing watch `next` response, parsed only from confirmed YouChat structures |

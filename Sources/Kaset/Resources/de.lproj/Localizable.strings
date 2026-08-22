@@ -288,6 +288,7 @@
 "No history" = "Kein Verlauf";
 "No liked songs yet" = "Noch keine mit \"Gefällt mir\" markierten Titel";
 "No Lyrics Available" = "Kein Songtext verfügbar";
+"No matching videos" = "Keine passenden Videos";
 "No Moods & Genres Available" = "Keine Stimmungen und Genres verfügbar";
 "No Playlists" = "Keine Playlists";
 "No playlists" = "Keine Playlists";
@@ -412,6 +413,7 @@
 "Search" = "Suchen";
 "Search for your favorite music" = "Suche nach deiner Lieblingsmusik";
 "Search songs, albums, artists..." = "Titel, Alben, Interpreten suchen…";
+"Search this channel" = "In diesem Kanal suchen";
 "Search YouTube" = "YouTube durchsuchen";
 "Searching..." = "Suche läuft…";
 "See all" = "Alle anzeigen";

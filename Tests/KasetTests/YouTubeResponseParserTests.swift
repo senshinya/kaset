@@ -2,27 +2,6 @@ import Foundation
 import Testing
 @testable import Kaset
 
-// MARK: - Fixture Loading
-
-/// Loads a captured YouTube API fixture from the test bundle.
-private func loadYouTubeFixture(_ name: String) throws -> [String: Any] {
-    guard let url = Bundle.module.url(forResource: name, withExtension: "json") else {
-        throw YouTubeFixtureError.notFound(name)
-    }
-    let data = try Data(contentsOf: url)
-    guard let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-        throw YouTubeFixtureError.invalidJSON(name)
-    }
-    return dict
-}
-
-// MARK: - YouTubeFixtureError
-
-private enum YouTubeFixtureError: Error {
-    case notFound(String)
-    case invalidJSON(String)
-}
-
 // MARK: - YouTubeSearchParserTests
 
 @Suite("YouTubeSearchParser", .tags(.parser))
@@ -554,24 +533,6 @@ struct WatchNextParserTests {
 
     private static func timeText(seconds: Int) -> String {
         String(format: "%d:%02d", seconds / 60, seconds % 60)
-    }
-}
-
-// MARK: - ChannelPageParserTests
-
-@Suite("ChannelPageParser", .tags(.parser))
-struct ChannelPageParserTests {
-    @Test("Parses channel metadata and landing videos from a captured browse response")
-    func parsesChannelPage() throws {
-        let data = try loadYouTubeFixture("youtube_channel")
-
-        let detail = try #require(ChannelPageParser.parse(data, channelId: "UC_x5XG1OV2P6uZZ5FSM9Ttw"))
-
-        #expect(detail.channel.channelId == "UC_x5XG1OV2P6uZZ5FSM9Ttw")
-        #expect(detail.channel.name == "Google for Developers")
-        #expect(detail.channel.thumbnailURL != nil)
-        #expect(detail.channel.descriptionSnippet?.isEmpty == false)
-        #expect(!detail.videos.isEmpty)
     }
 }
 

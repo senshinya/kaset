@@ -288,6 +288,7 @@
 "No history" = "기록 없음";
 "No liked songs yet" = "아직 좋아요 표시한 노래가 없습니다";
 "No Lyrics Available" = "가사 없음";
+"No matching videos" = "일치하는 동영상 없음";
 "No Moods & Genres Available" = "분위기 및 장르 없음";
 "No Playlists" = "재생목록 없음";
 "No playlists" = "재생목록 없음";
@@ -412,6 +413,7 @@
 "Search" = "검색";
 "Search for your favorite music" = "좋아하는 음악 검색";
 "Search songs, albums, artists..." = "노래, 앨범, 아티스트 검색...";
+"Search this channel" = "이 채널에서 검색";
 "Search YouTube" = "YouTube 검색";
 "Searching..." = "검색 중...";
 "See all" = "모두 보기";

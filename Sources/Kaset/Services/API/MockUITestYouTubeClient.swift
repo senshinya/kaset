@@ -194,8 +194,18 @@ final class MockUITestYouTubeClient: YouTubeClientProtocol {
                 handle: Self.sampleChannel.handle,
                 subscriberCountText: Self.sampleChannel.subscriberCountText
             ),
-            videos: Self.sampleVideos
+            videos: Self.sampleVideos,
+            sortOptions: [
+                YouTubeChannelSortOption(title: "Latest", continuation: "mock-latest", isSelected: true),
+                YouTubeChannelSortOption(title: "Popular", continuation: "mock-popular", isSelected: false),
+            ],
+            searchParams: "mock-search-params",
+            isSubscribed: false
         )
+    }
+
+    func searchChannel(channelId _: String, query _: String, params _: String?) async throws -> YouTubeFeed {
+        YouTubeFeed(videos: Self.sampleVideos, continuation: nil)
     }
 
     func getPlaylist(playlistId: String) async throws -> YouTubePlaylistDetail {

@@ -27,6 +27,15 @@ final class MockYouTubeClient: YouTubeClientProtocol {
     var continuedAskConversation: YouTubeAskConversation?
     var askError: Error?
     var channelDetail: YouTubeChannelDetail?
+    var channelSearchFeed: YouTubeFeed?
+    /// When set, `setSubscribed` suspends on this gate before returning.
+    var subscriptionGate: AsyncGate?
+    /// When set, the next `getChannel` suspends on this gate before returning,
+    /// so a test can hold a page load open across other work.
+    var channelGate: AsyncGate?
+    /// When set, the next `getFeedContinuation` suspends on this gate, so a
+    /// test can hold a list swap or page open across other work.
+    var feedGate: AsyncGate?
     var playlistDetail: YouTubePlaylistDetail?
 
     /// When set, every call throws this error.
@@ -34,6 +43,14 @@ final class MockYouTubeClient: YouTubeClientProtocol {
 
     // MARK: - Call Tracking
 
+    /// One recorded `searchChannel` call.
+    struct ChannelSearchCall: Equatable {
+        let channelId: String
+        let query: String
+        let params: String?
+    }
+
+    private(set) var channelSearchCalls: [ChannelSearchCall] = []
     private(set) var homeFeedCallCount = 0
     private(set) var homeBundleForceRefreshes: [Bool] = []
     private(set) var searchCallCount = 0
@@ -369,6 +386,10 @@ final class MockYouTubeClient: YouTubeClientProtocol {
     }
 
     func getChannel(channelId: String) async throws -> YouTubeChannelDetail {
+        if let gate = self.channelGate {
+            self.channelGate = nil
+            await gate.wait()
+        }
         if let error {
             throw error
         }
@@ -379,6 +400,18 @@ final class MockYouTubeClient: YouTubeClientProtocol {
             channel: YouTubeChannel(channelId: channelId, name: "Mock Channel"),
             videos: []
         )
+    }
+
+    func searchChannel(channelId: String, query: String, params: String?) async throws -> YouTubeFeed {
+        // Recorded before the failure so a test can tell "never sent" apart
+        // from "sent and failed".
+        self.channelSearchCalls.append(
+            ChannelSearchCall(channelId: channelId, query: query, params: params)
+        )
+        if let error {
+            throw error
+        }
+        return self.channelSearchFeed ?? YouTubeFeed(videos: [], continuation: nil)
     }
 
     func getPlaylist(playlistId: String) async throws -> YouTubePlaylistDetail {
@@ -430,6 +463,10 @@ final class MockYouTubeClient: YouTubeClientProtocol {
     }
 
     func getFeedContinuation(continuation: String) async throws -> YouTubeFeed {
+        if let gate = self.feedGate {
+            self.feedGate = nil
+            await gate.wait()
+        }
         if let error {
             throw error
         }
@@ -511,10 +548,18 @@ final class MockYouTubeClient: YouTubeClientProtocol {
     }
 
     func setSubscribed(_ subscribed: Bool, channelId: String) async throws {
+        self.subscriptionChanges.append((channelId, subscribed))
+        // Holds only the first mutation in flight, so a test that expects
+        // overlapping taps to be rejected fails fast instead of deadlocking on
+        // a second call that should never have been made. The failure is raised
+        // after the gate so a test can fail a request that is already in flight.
+        if let gate = self.subscriptionGate {
+            self.subscriptionGate = nil
+            await gate.wait()
+        }
         if let error {
             throw error
         }
-        self.subscriptionChanges.append((channelId, subscribed))
     }
 
     func addToWatchLater(videoId: String) async throws {
