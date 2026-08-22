@@ -7,16 +7,16 @@
         <language>en</language>
 
         <item>
-            <title>Version 100.31.1.2</title>
-            <sparkle:releaseNotesLink>https://github.com/senshinya/kaset/releases/tag/v100.31.1.2</sparkle:releaseNotesLink>
-            <pubDate>Fri, 21 Aug 2026 15:15:39 +0000</pubDate>
+            <title>Version 100.31.1.3</title>
+            <sparkle:releaseNotesLink>https://github.com/senshinya/kaset/releases/tag/v100.31.1.3</sparkle:releaseNotesLink>
+            <pubDate>Sat, 22 Aug 2026 04:28:58 +0000</pubDate>
             <enclosure
-                url="https://github.com/senshinya/kaset/releases/download/v100.31.1.2/kaset-v100.31.1.2.dmg"
-                sparkle:version="100.31.1.2"
-                sparkle:shortVersionString="100.31.1.2"
-                length="10314660"
+                url="https://github.com/senshinya/kaset/releases/download/v100.31.1.3/kaset-v100.31.1.3.dmg"
+                sparkle:version="100.31.1.3"
+                sparkle:shortVersionString="100.31.1.3"
+                length="10377336"
                 type="application/octet-stream"
-                sparkle:edSignature="KYcfjMgcjCUTvyr2da3oqG9scLH0Sp8L5G1VeOFNFDZAxjM8KQxKEcAwPRp7MSslLjRMZWNq8Qa4Ax7sS179CA=="/>
+                sparkle:edSignature="b7tzwOtST2f6upHxK7Mt3kGtiYpoCzsYX+7Npj97INPrsatkL7S9o/O57Qw3EaSNNUarErV9ppvc7bm9G5YmAQ=="/>
             <sparkle:minimumSystemVersion>15.4</sparkle:minimumSystemVersion>
         </item>
 
