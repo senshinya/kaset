@@ -67,5 +67,7 @@ What becomes easier or more difficult because of this change?
 | [0030](0030-account-scoped-favorites.md) | Account-Scoped Favorites Persistence | Accepted |
 | [0031](0031-saved-album-library-reconciliation.md) | Saved-Album Library Identity and Reconciliation | Accepted |
 | [0032](0032-youtube-ask-gemini.md) | Watch-Scoped YouTube Ask Gemini | Accepted; fixed WEB profile enabled in production |
-| [0033](0033-client-side-playlist-sort-and-search.md) | Client-Side Playlist Sort and Search | Accepted |
-| [0034](0034-pause-on-output-device-change.md) | Pause Playback When the Audio Output Device Disappears | Accepted |
+| [0033](0033-login-passkey-suppression.md) | Suppress Passkey Detection in the Login WebView | Accepted |
+| [0034](0034-replace-playback-navigation.md) | Replace Playback Documents Without Growing History | Accepted |
+| [0035](0035-client-side-playlist-sort-and-search.md) | Client-Side Playlist Sort and Search | Accepted |
+| [0036](0036-pause-on-output-device-change.md) | Pause Playback When the Audio Output Device Disappears | Accepted |

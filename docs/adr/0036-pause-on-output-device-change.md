@@ -1,4 +1,4 @@
-# ADR-0034: Pause Playback When the Audio Output Device Disappears
+# ADR-0036: Pause Playback When the Audio Output Device Disappears
 
 ## Status
 

@@ -1,4 +1,4 @@
-# ADR-0033: Client-Side Playlist Sort and Search
+# ADR-0035: Client-Side Playlist Sort and Search
 
 ## Status
 

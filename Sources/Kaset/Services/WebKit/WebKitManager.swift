@@ -309,10 +309,10 @@ final class WebKitManager: NSObject, WebKitManagerProtocol {
         #endif
     }
 
-    func extensionHostWebViewDidDeactivate(role: WebExtensionHostedWebViewRole) {
+    func unregisterExtensionHostWebView(role: WebExtensionHostedWebViewRole) {
         #if compiler(>=5.9)
             if #available(macOS 15.4, *) {
-                self.webExtensionHost.deactivate(role: role)
+                self.webExtensionHost.unregister(role: role)
             }
         #endif
     }
@@ -333,13 +333,17 @@ final class WebKitManager: NSObject, WebKitManagerProtocol {
         #endif
     }
 
-    /// Creates the minimal WebView configuration used for hidden account-switch
-    /// navigations. It deliberately shares only the website data store (cookies)
-    /// and does not attach the app's `WKWebExtensionController`, so enabled
-    /// extensions/content scripts cannot observe credential-bearing signin URLs.
+    /// Creates the minimal WebView configuration used for the login sheet and
+    /// hidden account-switch navigations. It deliberately shares only the
+    /// website data store (cookies) and does not attach the app's
+    /// `WKWebExtensionController`, so enabled extensions/content scripts cannot
+    /// observe credential-bearing signin URLs. It also suppresses WebAuthn
+    /// passkey detection so Google's sign-in falls back to flows that can
+    /// succeed in an embedded WebView (ADR-0033).
     func createSessionSwitchWebViewConfiguration() -> WKWebViewConfiguration {
         let configuration = WKWebViewConfiguration()
         configuration.websiteDataStore = self.dataStore
+        configuration.userContentController.addUserScript(LoginPasskeySuppression.makeUserScript())
         return configuration
     }
 

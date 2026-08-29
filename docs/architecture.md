@@ -276,7 +276,7 @@ Control regular YouTube video playback through a separate singleton watch WebVie
 
 Coordinates the two playback services so Music and YouTube do not play over each other. When one source starts, the arbiter pauses the other source; `NowPlayingManager` uses the arbiter's active/last-played source to route media keys.
 
-It also applies the one policy that spans both sources: `outputRouteDidDisappear()` pauses whichever source is playing when the audio output device it was playing through goes away. Pausing leaves `activeSource` alone — a disconnect is not a source switch, so media keys keep pointing where they pointed. See ADR-0034.
+It also applies the one policy that spans both sources: `outputRouteDidDisappear()` pauses whichever source is playing when the audio output device it was playing through goes away. Pausing leaves `activeSource` alone — a disconnect is not a source switch, so media keys keep pointing where they pointed. See ADR-0036.
 
 ### AudioOutputDeviceMonitor
 
