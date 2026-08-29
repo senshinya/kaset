@@ -641,8 +641,14 @@ struct FavoritesManagerTestsLegacyMigrationClaims {
             intoOwnerID: resolvedOwnerID,
             accountIDs: [accountID]
         ))
-        try await Task.sleep(for: .milliseconds(300))
 
+        let didRecover = await self.waitUntil(timeout: .seconds(2)) {
+            !FileManager.default.fileExists(atPath: legacyURL.path)
+                && !FileManager.default.fileExists(atPath: provisionalTargetURL.path)
+                && FileManager.default.fileExists(atPath: resolvedTargetURL.path)
+        }
+
+        #expect(didRecover)
         #expect(!FileManager.default.fileExists(atPath: legacyURL.path))
         #expect(!FileManager.default.fileExists(atPath: provisionalTargetURL.path))
         let recoveredItems = try JSONDecoder().decode([FavoriteItem].self, from: Data(contentsOf: resolvedTargetURL))

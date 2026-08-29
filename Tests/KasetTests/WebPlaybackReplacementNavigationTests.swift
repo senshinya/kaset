@@ -12,6 +12,10 @@ struct WebPlaybackReplacementNavigationTests {
     func failedLocationReplacementReportsTrackableNavigation() async throws {
         let configuration = WKWebViewConfiguration()
         configuration.websiteDataStore = .nonPersistent()
+        configuration.setURLSchemeHandler(
+            FailingURLSchemeHandler(),
+            forURLScheme: "kaset-test"
+        )
         let webView = WKWebView(frame: .zero, configuration: configuration)
         let probe = ReplacementNavigationProbe()
 
@@ -19,7 +23,7 @@ struct WebPlaybackReplacementNavigationTests {
 
         let generation: UInt64 = 42
         let destination = try #require(URL(
-            string: "https://127.0.0.1:1/watch?v=replacement&kasetDocumentGeneration=\(generation)"
+            string: "kaset-test://playback/watch?v=replacement&kasetDocumentGeneration=\(generation)"
         ))
         let observation = try await probe.replaceLocation(
             in: webView,
@@ -32,6 +36,16 @@ struct WebPlaybackReplacementNavigationTests {
         )
         #expect(observation.startedNavigationID == observation.failedNavigationID)
     }
+}
+
+// MARK: - FailingURLSchemeHandler
+
+private final class FailingURLSchemeHandler: NSObject, WKURLSchemeHandler {
+    func webView(_: WKWebView, start urlSchemeTask: any WKURLSchemeTask) {
+        urlSchemeTask.didFailWithError(URLError(.cannotConnectToHost))
+    }
+
+    func webView(_: WKWebView, stop _: any WKURLSchemeTask) {}
 }
 
 // MARK: - ReplacementNavigationProbe
